@@ -10,6 +10,7 @@ public class RosegoodsBackendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RosegoodsBackendApplication.class, args);
+        
     }
 
 }
