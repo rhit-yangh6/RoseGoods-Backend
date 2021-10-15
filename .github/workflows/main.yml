@@ -63,3 +63,16 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+      - name: SSH to host and Pull Docker image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 10000
+          script: |
+            docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend --format="{{.ID}}"))
+            docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend:latest
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend
+            docker run -d -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend
