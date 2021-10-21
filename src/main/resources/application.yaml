@@ -1,10 +1,9 @@
 spring:
   datasource:
-    username: root
-    password: rootroot
-    url: jdbc:mysql://localhost:3306/new?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+    username: mysql
+    password: JasonHenry490*
+    url: jdbc:mysql://139.196.98.81:3306/new?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-
 
 
 mybatis-plus:
