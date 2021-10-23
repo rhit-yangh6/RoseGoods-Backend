@@ -1,7 +1,7 @@
 package com.example.rosegoodsbackend.rdbms.mapper;
 
-import com.example.rosegoodsbackend.rdbms.entity.Table;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.rosegoodsbackend.rdbms.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2021-09-17
  */
 @Mapper
-public interface TableMapper extends BaseMapper<Table> {
+public interface UserMapper extends BaseMapper<User> {
 
 }

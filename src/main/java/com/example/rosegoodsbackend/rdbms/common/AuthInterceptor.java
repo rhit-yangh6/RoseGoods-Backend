@@ -1,4 +1,4 @@
-package com.example.rosegoodsbackend.rdbms.config;
+package com.example.rosegoodsbackend.rdbms.common;
 
 import com.example.rosegoodsbackend.rdbms.error.GeneralException;
 import io.jsonwebtoken.Jwts;
@@ -28,6 +28,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             throw GeneralException.ofNullTokenException();
         }
         try {
+            // Token is examined but not examined for information here
             Jwts.parser().setSigningKey("MG9BRHIp75bvtGtc8qug".getBytes()).parseClaimsJws(token);
         } catch (Exception e) {
             throw GeneralException.ofInvalidTokenException();
@@ -35,6 +36,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         return true;
     }
+
+
 
     /*@Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {

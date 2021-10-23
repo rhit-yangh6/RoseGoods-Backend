@@ -2,7 +2,7 @@ spring:
   datasource:
     username: mysql
     password: JasonHenry490*
-    url: jdbc:mysql://139.196.98.81:3306/new?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+    url: jdbc:mysql://139.196.98.81:3306/RoseGoods?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
