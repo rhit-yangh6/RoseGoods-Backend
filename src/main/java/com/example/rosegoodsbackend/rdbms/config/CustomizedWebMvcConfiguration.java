@@ -31,7 +31,7 @@ public class CustomizedWebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(authInterceptor).addPathPatterns("/**").excludePathPatterns(patterns);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CustomizedWebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*");
+        registry.addMapping("/**").allowedOrigins("*").exposedHeaders("Authorization", "Content-Type").allowedHeaders("Authorization", "Content-Type");
     }
 
 }
