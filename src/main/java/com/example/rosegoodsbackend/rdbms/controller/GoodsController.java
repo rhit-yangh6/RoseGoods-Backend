@@ -35,4 +35,18 @@ public class GoodsController {
     Result<?> getGoodsByUser(@RequestParam String user){
         return Result.success(goodsService.getByUser(user));
     }
+
+    @DeleteMapping(path = "/deleteGoods")
+    public @ResponseBody
+    Result<Boolean> deleteGoods(@RequestParam int id){
+        goodsService.deleteGoods(id);
+        return Result.success(true);
+    }
+
+    @PostMapping(path = "/addGoods")
+    public @ResponseBody
+    Result<Boolean> addGoods(@RequestParam String itemName, @RequestParam float price, @RequestParam int categoryId, @RequestParam String descrip, @RequestParam String imgUrl){
+        goodsService.addGoods(itemName, "qiuj1", price, categoryId, descrip, imgUrl);
+        return Result.success(true);
+    }
 }

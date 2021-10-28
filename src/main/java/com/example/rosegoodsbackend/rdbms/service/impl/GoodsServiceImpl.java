@@ -24,16 +24,29 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public List<Goods> searchGoods(String keyword) {
-        return null;
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        return mapper.selectList(queryWrapper);
     }
 
     @Override
     public List<Goods> getByCategory(String categoryName) {
-        return null;
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq(Goods., categoryName);
+        return mapper.selectList(queryWrapper);
     }
 
     @Override
     public List<Goods> getByUser(String username) {
         return null;
+    }
+
+    @Override
+    public void addGoods(String itemName, String username, float price, int categoryId, String descrip, String imgUrl){
+
+    }
+
+    @Override
+    public void deleteGoods(int id){
+
     }
 }
