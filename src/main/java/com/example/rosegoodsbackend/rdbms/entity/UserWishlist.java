@@ -1,37 +1,21 @@
 package com.example.rosegoodsbackend.rdbms.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author Jason Qiu
- * @since 2021-09-17
- */
+import java.io.Serializable;
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("Users")
-public class User implements Serializable {
-
+@TableName("UserWishlist")
+public class UserWishlist implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String username;
 
-    private String name;
-
-    private String address;
-
-    @TableField(value = "phone_number")
-    private String phoneNumber;
-
+    @TableField(value = "goods_id")
+    private int goodsId;
 }

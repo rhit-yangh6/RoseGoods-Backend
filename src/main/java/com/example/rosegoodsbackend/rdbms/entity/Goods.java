@@ -1,13 +1,16 @@
 package com.example.rosegoodsbackend.rdbms.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @TableName("Goods")
-public class Goods {
+public class Goods implements Serializable {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -18,13 +21,16 @@ public class Goods {
 
     private float price;
 
-    private String created_time;
+    @TableField(value = "created_time")
+    private String createdTime;
 
-    private int category_id;
+    @TableField(value = "category_id")
+    private int categoryId;
 
     private String description;
 
     private int status;
 
-    private String img_url;
+    @TableField(value = "img_url")
+    private String imgUrl;
 }

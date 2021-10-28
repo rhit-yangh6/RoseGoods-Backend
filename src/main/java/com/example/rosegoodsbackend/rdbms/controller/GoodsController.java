@@ -17,4 +17,22 @@ public class GoodsController {
     Result<?> getGoods(){
         return Result.success(goodsService.getAllGoods());
     }
+
+    @GetMapping(path = "/searchGoods")
+    public @ResponseBody
+    Result<?> getGoodsByName(@RequestParam String keyword){
+        return Result.success(goodsService.searchGoods(keyword));
+    }
+
+    @GetMapping(path = "/searchGoodsByCategory")
+    public @ResponseBody
+    Result<?> getGoodsByCategory(@RequestParam String category){
+        return Result.success(goodsService.getByCategory(category));
+    }
+
+    @GetMapping(path = "/userGoods")
+    public @ResponseBody
+    Result<?> getGoodsByUser(@RequestParam String user){
+        return Result.success(goodsService.getByUser(user));
+    }
 }
