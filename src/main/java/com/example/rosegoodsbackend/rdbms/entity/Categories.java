@@ -14,6 +14,4 @@ public class Categories implements Serializable {
     private Integer id;
 
     private String name;
-
-    private String description;
 }

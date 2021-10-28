@@ -5,13 +5,13 @@ import com.example.rosegoodsbackend.rdbms.entity.Goods;
 
 import java.util.List;
 
-public interface IGoodsService  extends IService<Goods> {
+public interface IGoodsService extends IService<Goods> {
 
     public List<Goods> getAllGoods();
     public List<Goods> searchGoods(String keyword);
-    public List<Goods> getByCategory(String categoryName);
+    public List<Goods> getByCategory(int categoryId);
     public List<Goods> getByUser(String username);
 
     public void addGoods(String itemName, String username, float price, int categoryId, String descrip, String imgUrl);
-    public void deleteGoods(int id);
+    public boolean deleteGoods(int id, String username);
 }

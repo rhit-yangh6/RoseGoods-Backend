@@ -19,25 +19,29 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Override
     public List<Goods> getAllGoods() {
         QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("created_time").last("limit 10");
         return mapper.selectList(queryWrapper);
     }
 
     @Override
     public List<Goods> searchGoods(String keyword) {
         QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", keyword);
         return mapper.selectList(queryWrapper);
     }
 
     @Override
-    public List<Goods> getByCategory(String categoryName) {
+    public List<Goods> getByCategory(int categoryId) {
         QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq(Goods., categoryName);
+        queryWrapper.eq("category_id", categoryId);
         return mapper.selectList(queryWrapper);
     }
 
     @Override
     public List<Goods> getByUser(String username) {
-        return null;
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        return mapper.selectList(queryWrapper);
     }
 
     @Override
@@ -46,7 +50,16 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public void deleteGoods(int id){
-
+    public boolean deleteGoods(int id, String username){
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        Goods good = mapper.selectOne(queryWrapper);
+        if (good == null){
+            return false;
+        } else if (good.getUsername().equals(username)){
+            mapper.delete(queryWrapper);
+            return true;
+        }
+        return false;
     }
 }
