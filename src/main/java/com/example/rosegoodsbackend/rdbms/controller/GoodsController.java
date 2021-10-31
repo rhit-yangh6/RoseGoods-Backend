@@ -1,10 +1,16 @@
 package com.example.rosegoodsbackend.rdbms.controller;
 
 import com.example.rosegoodsbackend.rdbms.common.Result;
+import com.example.rosegoodsbackend.rdbms.entity.Goods;
 import com.example.rosegoodsbackend.rdbms.entity.User;
+import com.example.rosegoodsbackend.rdbms.pojos.GoodsPojo;
 import com.example.rosegoodsbackend.rdbms.service.IGoodsService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @RestController
 @RequestMapping("/goods")
@@ -50,8 +56,22 @@ public class GoodsController {
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    Result<Boolean> addGoods(User user, @RequestParam String itemName, @RequestParam float price, @RequestParam int categoryId, @RequestParam String descrip, @RequestParam String imgUrl){
-        goodsService.addGoods(itemName, user.getUsername(), price, categoryId, descrip, imgUrl);
+    Result<Boolean> addGoods(User user, @RequestBody GoodsPojo goodsPojo){
+        Goods goods = new Goods();
+
+        BeanUtils.copyProperties(goodsPojo, goods);
+        goods.setUsername(user.getUsername());
+        goods.setStatus(0);
+        goods.setViews(0);
+        goods.setCreatedTime(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()));
+        goodsService.addGoods(goods);
         return Result.success(true);
+    }
+
+    @GetMapping(path = "/byId")
+    public @ResponseBody
+    Result<?> getGoodsById(@RequestParam int id){
+        // TODO: add view ++
+        return Result.success(goodsService.getGoodsById(id));
     }
 }

@@ -33,4 +33,6 @@ public class Goods implements Serializable {
 
     @TableField(value = "img_url")
     private String imgUrl;
+
+    private int views;
 }

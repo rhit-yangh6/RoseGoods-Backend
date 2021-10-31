@@ -45,8 +45,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public void addGoods(String itemName, String username, float price, int categoryId, String descrip, String imgUrl){
-
+    public void addGoods(Goods goods){
+        mapper.insert(goods);
     }
 
     @Override
@@ -62,4 +62,14 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         }
         return false;
     }
+
+    @Override
+    public Goods getGoodsById(int id) {
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        Goods good = mapper.selectOne(queryWrapper);
+        return good;
+    }
+
+
 }

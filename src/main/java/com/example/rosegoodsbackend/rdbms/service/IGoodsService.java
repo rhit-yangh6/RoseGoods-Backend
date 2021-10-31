@@ -12,6 +12,7 @@ public interface IGoodsService extends IService<Goods> {
     public List<Goods> getByCategory(int categoryId);
     public List<Goods> getByUser(String username);
 
-    public void addGoods(String itemName, String username, float price, int categoryId, String descrip, String imgUrl);
+    public void addGoods(Goods goods);
     public boolean deleteGoods(int id, String username);
+    public Goods getGoodsById(int id);
 }
