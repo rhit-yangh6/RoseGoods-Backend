@@ -12,6 +12,12 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @GetMapping(path = "/view")
+    public @ResponseBody
+    Result<?> showInfo(User user){
+        return Result.success(user);
+    }
+
     @GetMapping(path = "/address")
     public @ResponseBody
     Result<Boolean> modifyAddr(User user, @RequestParam String address){
