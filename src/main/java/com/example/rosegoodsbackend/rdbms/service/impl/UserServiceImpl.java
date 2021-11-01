@@ -1,6 +1,8 @@
 package com.example.rosegoodsbackend.rdbms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.rosegoodsbackend.rdbms.common.AuthData;
 import com.example.rosegoodsbackend.rdbms.entity.User;
 import com.example.rosegoodsbackend.rdbms.mapper.UserMapper;
@@ -54,4 +56,39 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return newUser;
     }
 
+    @Override
+    public boolean modifyAddress(String username, String address) {
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("username", username);
+        User selected = mapper.selectOne(updateWrapper);
+        if (selected == null || address.trim().isEmpty())
+            return false;
+        updateWrapper.set("address", address);
+        mapper.update(selected, updateWrapper);
+        return true;
+    }
+
+    @Override
+    public boolean modifyPhone(String username, String phone) {
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("username", username);
+        User selected = mapper.selectOne(updateWrapper);
+        if (selected == null || phone.trim().isEmpty())
+            return false;
+        updateWrapper.set("phone_number", phone);
+        mapper.update(selected, updateWrapper);
+        return true;
+    }
+
+    @Override
+    public boolean modifyName(String username, String actualName) {
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("username", username);
+        User selected = mapper.selectOne(updateWrapper);
+        if (selected == null || actualName.trim().isEmpty())
+            return false;
+        updateWrapper.set("name", actualName);
+        mapper.update(selected, updateWrapper);
+        return true;
+    }
 }
