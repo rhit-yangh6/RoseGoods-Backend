@@ -18,6 +18,11 @@ public class WishlistServiceImpl  extends ServiceImpl<WishlistMapper, UserWishli
 
     @Override
     public void addToWishlist(String username, int itemId){
+        QueryWrapper<UserWishlist> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username).eq("goods_id", itemId);
+        if (mapper.selectOne(queryWrapper) != null){
+            return;
+        }
         UserWishlist wishlist = new UserWishlist();
         wishlist.setUsername(username);
         wishlist.setGoodsId(itemId);

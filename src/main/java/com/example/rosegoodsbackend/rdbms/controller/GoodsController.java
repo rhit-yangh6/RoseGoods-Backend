@@ -1,10 +1,14 @@
 package com.example.rosegoodsbackend.rdbms.controller;
 
+import com.example.rosegoodsbackend.rdbms.Dto.GoodsInfoDto;
 import com.example.rosegoodsbackend.rdbms.common.Result;
+import com.example.rosegoodsbackend.rdbms.entity.Categories;
 import com.example.rosegoodsbackend.rdbms.entity.Goods;
 import com.example.rosegoodsbackend.rdbms.entity.User;
 import com.example.rosegoodsbackend.rdbms.pojos.GoodsPojo;
+import com.example.rosegoodsbackend.rdbms.service.ICategoryService;
 import com.example.rosegoodsbackend.rdbms.service.IGoodsService;
+import com.example.rosegoodsbackend.rdbms.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,10 @@ public class GoodsController {
 
     @Autowired
     private IGoodsService goodsService;
+    @Autowired
+    private ICategoryService categoryService;
+    @Autowired
+    private IUserService userService;
 
     @GetMapping(path = "/all")
     public @ResponseBody
@@ -70,7 +78,14 @@ public class GoodsController {
     @GetMapping(path = "/byId")
     public @ResponseBody
     Result<?> getGoodsById(@RequestParam int id){
-        // TODO: add view ++
-        return Result.success(goodsService.getGoodsById(id));
+        Goods good = goodsService.getGoodsById(id);
+        GoodsInfoDto info = new GoodsInfoDto();
+        BeanUtils.copyProperties(good, info);
+        Categories category = categoryService.getOneCategory(good.getCategoryId());
+        info.setCategoryName(category.getName());
+        User user = userService.getUser(good.getUsername());
+        info.setUserAddress(user.getAddress());
+        info.setUserPhone(user.getPhoneNumber());
+        return Result.success(info);
     }
 }

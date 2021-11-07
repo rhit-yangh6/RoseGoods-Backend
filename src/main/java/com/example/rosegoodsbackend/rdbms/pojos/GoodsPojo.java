@@ -7,9 +7,9 @@ public class GoodsPojo {
 
     private String name;
 
-    private float price;
+    private Float price;
 
-    private int categoryId;
+    private Integer categoryId;
 
     private String description;
 

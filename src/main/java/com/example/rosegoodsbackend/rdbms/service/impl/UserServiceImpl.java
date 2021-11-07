@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.rosegoodsbackend.rdbms.common.AuthData;
 import com.example.rosegoodsbackend.rdbms.entity.User;
 import com.example.rosegoodsbackend.rdbms.mapper.UserMapper;
+import com.example.rosegoodsbackend.rdbms.pojos.UserInfoPojo;
 import com.example.rosegoodsbackend.rdbms.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.jsonwebtoken.Jwts;
@@ -47,47 +48,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public User insertUser(String username, String name) {
-//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setName(name);
-//        newUser.setId();
         mapper.insert(newUser);
         return newUser;
     }
 
     @Override
-    public boolean modifyAddress(String username, String address) {
+    public boolean modifyInfo(String username, UserInfoPojo info) {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("username", username);
         User selected = mapper.selectOne(updateWrapper);
-        if (selected == null || address.trim().isEmpty())
+        if (selected == null){
             return false;
-        updateWrapper.set("address", address);
-        mapper.update(selected, updateWrapper);
-        return true;
-    }
-
-    @Override
-    public boolean modifyPhone(String username, String phone) {
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("username", username);
-        User selected = mapper.selectOne(updateWrapper);
-        if (selected == null || phone.trim().isEmpty())
-            return false;
-        updateWrapper.set("phone_number", phone);
-        mapper.update(selected, updateWrapper);
-        return true;
-    }
-
-    @Override
-    public boolean modifyName(String username, String actualName) {
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("username", username);
-        User selected = mapper.selectOne(updateWrapper);
-        if (selected == null || actualName.trim().isEmpty())
-            return false;
-        updateWrapper.set("name", actualName);
+        }
+        if (!info.getAddress().trim().isEmpty()){
+            updateWrapper.set("address", info.getAddress());
+        }
+        if (!info.getPhoneNumber().trim().isEmpty()){
+            updateWrapper.set("phone_number", info.getPhoneNumber());
+        }
+        if (!info.getName().trim().isEmpty()){
+            updateWrapper.set("name", info.getName());
+        }
         mapper.update(selected, updateWrapper);
         return true;
     }

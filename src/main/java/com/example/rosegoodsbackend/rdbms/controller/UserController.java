@@ -2,6 +2,7 @@ package com.example.rosegoodsbackend.rdbms.controller;
 
 import com.example.rosegoodsbackend.rdbms.common.Result;
 import com.example.rosegoodsbackend.rdbms.entity.User;
+import com.example.rosegoodsbackend.rdbms.pojos.UserInfoPojo;
 import com.example.rosegoodsbackend.rdbms.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,17 @@ public class UserController {
         return Result.success(user);
     }
 
-    @GetMapping(path = "/address")
+    @PostMapping(path = "/infoChange")
+    public @ResponseBody
+    Result<Boolean> modifyInfo(User user, @RequestBody UserInfoPojo info){
+        if (userService.modifyInfo(user.getUsername(), info)) {
+            return Result.success("Successfully modified user info");
+        } else {
+            return Result.fail("Failed to modify user info");
+        }
+    }
+
+    /*@GetMapping(path = "/address")
     public @ResponseBody
     Result<Boolean> modifyAddr(User user, @RequestParam String address){
         if (userService.modifyAddress(user.getUsername(), address)) {
@@ -46,6 +57,6 @@ public class UserController {
         } else {
             return Result.fail("Failed to modify name");
         }
-    }
+    }*/
 
 }

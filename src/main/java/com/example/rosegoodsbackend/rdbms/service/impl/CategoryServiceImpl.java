@@ -22,4 +22,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Categories>
         return mapper.selectList(queryWrapper);
     }
 
+    @Override
+    public Categories getOneCategory(int id) {
+        QueryWrapper<Categories> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        return mapper.selectOne(queryWrapper);
+    }
+
+
 }
