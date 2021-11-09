@@ -27,7 +27,7 @@ public class CommentController {
         return Result.success(true);
     }
 
-    @GetMapping(path = "/list")
+    @GetMapping(path = "/listUser")
     List<UserComments> getUserComment(@RequestParam String username){
         return commentService.getUserComments(username);
     }
@@ -39,4 +39,10 @@ public class CommentController {
         }
         return Result.fail("Delete comment failed");
     }
+
+    @GetMapping(path = "/listGoods")
+    List<UserComments> getGoodsComment(@RequestParam int goodsId){
+        return commentService.getGoodsComments(goodsId);
+    }
+
 }

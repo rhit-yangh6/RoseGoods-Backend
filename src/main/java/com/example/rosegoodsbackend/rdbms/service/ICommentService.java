@@ -11,4 +11,6 @@ public interface ICommentService extends IService<UserComments> {
     List<UserComments> getUserComments(String username);
 
     boolean removeComment(String username, int id);
+
+    List<UserComments> getGoodsComments(int goodsId);
 }

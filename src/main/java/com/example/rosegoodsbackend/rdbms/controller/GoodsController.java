@@ -88,4 +88,24 @@ public class GoodsController {
         info.setUserPhone(user.getPhoneNumber());
         return Result.success(info);
     }
+
+    @GetMapping(path = "/setStatus")
+    public @ResponseBody
+    Result<Boolean> setStatus(User user, @RequestParam int goodsId, @RequestParam int status){
+        if (goodsService.setGoodsStatus(user.getUsername(), goodsId, status)){
+            return Result.success(true);
+        } else {
+            return Result.fail(false);
+        }
+    }
+
+    @PostMapping(path = "/update")
+    public @ResponseBody
+    Result<Boolean> updateGoods(User user, @RequestParam int goodsId, @RequestBody GoodsPojo goodsPojo){
+        if (goodsService.updateGoods(user.getUsername(), goodsId, goodsPojo)){
+            return Result.success(true);
+        } else {
+            return Result.fail(false);
+        }
+    }
 }

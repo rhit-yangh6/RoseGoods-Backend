@@ -40,4 +40,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, UserComments>
             return true;
         }
     }
+
+    @Override
+    public List<UserComments> getGoodsComments(int goodsId){
+        QueryWrapper<UserComments> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("goods_id", goodsId);
+        return mapper.selectList(queryWrapper);
+    }
 }
