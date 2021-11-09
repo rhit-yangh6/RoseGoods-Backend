@@ -6,5 +6,5 @@ import lombok.Data;
 public class UserInfoPojo {
     private String address;
     private String phoneNumber;
-    private String name;
+    private String name; 
 }
