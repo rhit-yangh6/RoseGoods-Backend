@@ -71,4 +71,4 @@ jobs:
             docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend --format="{{.ID}}"))
             docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend:latest
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend
-            docker run -d -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend
+            docker run -d -p 7000:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend
