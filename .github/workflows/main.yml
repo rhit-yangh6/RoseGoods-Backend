@@ -43,9 +43,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: mvn -DskipTests=true -B package --file pom.xml
-        
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
 
       - name: Set up Docker Buildx
         id: buildx
@@ -57,7 +54,6 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile
-          platforms: linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend:latest
 
@@ -70,7 +66,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 10000
+          port: 80
           script: |
             docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend --format="{{.ID}}"))
             docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/rosegoods-backend:latest
