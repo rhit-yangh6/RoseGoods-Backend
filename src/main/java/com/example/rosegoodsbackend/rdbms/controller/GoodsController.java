@@ -9,6 +9,7 @@ import com.example.rosegoodsbackend.rdbms.pojos.GoodsPojo;
 import com.example.rosegoodsbackend.rdbms.service.ICategoryService;
 import com.example.rosegoodsbackend.rdbms.service.IGoodsService;
 import com.example.rosegoodsbackend.rdbms.service.IUserService;
+import com.example.rosegoodsbackend.rdbms.service.IWishlistService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,8 @@ public class GoodsController {
     private ICategoryService categoryService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IWishlistService wishlistService;
 
     @GetMapping(path = "/all")
     public @ResponseBody
@@ -86,6 +89,7 @@ public class GoodsController {
         User user = userService.getUser(good.getUsername());
         info.setUserAddress(user.getAddress());
         info.setUserPhone(user.getPhoneNumber());
+
         return Result.success(info);
     }
 

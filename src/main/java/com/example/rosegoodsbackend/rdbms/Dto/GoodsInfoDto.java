@@ -27,4 +27,6 @@ public class GoodsInfoDto {
     private String imgUrl;
 
     private Integer views;
+
+    private Boolean onWishlist;
 }

@@ -3,7 +3,6 @@ package com.example.rosegoodsbackend.rdbms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.rosegoodsbackend.rdbms.entity.UserComments;
-import com.example.rosegoodsbackend.rdbms.entity.UserWishlist;
 import com.example.rosegoodsbackend.rdbms.mapper.CommentMapper;
 import com.example.rosegoodsbackend.rdbms.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
