@@ -5,6 +5,7 @@ import com.example.rosegoodsbackend.rdbms.common.Result;
 import com.example.rosegoodsbackend.rdbms.entity.Categories;
 import com.example.rosegoodsbackend.rdbms.entity.Goods;
 import com.example.rosegoodsbackend.rdbms.entity.User;
+import com.example.rosegoodsbackend.rdbms.entity.UserWishlist;
 import com.example.rosegoodsbackend.rdbms.pojos.GoodsPojo;
 import com.example.rosegoodsbackend.rdbms.service.ICategoryService;
 import com.example.rosegoodsbackend.rdbms.service.IGoodsService;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @RestController
 @RequestMapping("/goods")
@@ -80,7 +82,7 @@ public class GoodsController {
 
     @GetMapping(path = "/byId")
     public @ResponseBody
-    Result<?> getGoodsById(@RequestParam int id){
+    Result<?> getGoodsById(User curUser, @RequestParam int id){
         Goods good = goodsService.getGoodsById(id);
         GoodsInfoDto info = new GoodsInfoDto();
         BeanUtils.copyProperties(good, info);
@@ -89,7 +91,14 @@ public class GoodsController {
         User user = userService.getUser(good.getUsername());
         info.setUserAddress(user.getAddress());
         info.setUserPhone(user.getPhoneNumber());
-
+        List<UserWishlist> wishlist = wishlistService.getUserWishlist(curUser.getUsername());
+        info.setOnWishlist(false);
+        for (UserWishlist wish : wishlist){
+            if (wish.getGoodsId() == good.getId()){
+                info.setOnWishlist(true);
+                break;
+            }
+        }
         return Result.success(info);
     }
 
